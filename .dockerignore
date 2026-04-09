@@ -1,0 +1,26 @@
+# Dependencies (installed fresh in Docker)
+node_modules/
+npm-debug.log*
+
+# Git files (not needed in container)
+.git/
+.gitignore
+
+# Test files (not needed in production image)
+test/
+test-results/
+coverage/
+*.test.js
+
+# Documentation
+*.md
+docs/
+
+# CI/CD configs (not needed inside container)
+Jenkinsfile
+helm/
+k8s/
+
+# Environment files (secrets never in image!)
+.env
+.env.*

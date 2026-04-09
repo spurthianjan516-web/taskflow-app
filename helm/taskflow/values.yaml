@@ -1,0 +1,68 @@
+
+appName: taskflow
+
+image:
+  repository: DOCKERHUB_USERNAME/taskflow-app  
+  pullPolicy: IfNotPresent
+  tag: "latest"                                
+replicaCount: 1
+
+nodeEnv: "production"
+
+service:
+  type: ClusterIP
+  port: 80           
+  targetPort: 3000   
+resources:
+  limits:
+    cpu: 500m        
+    memory: 512Mi    
+  requests:
+    cpu: 100m        
+    memory: 128Mi    
+
+# Liveness probe — "Is the app alive?"
+# WHY: If /health fails 3x → K8s kills + restarts pod
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 3000
+  initialDelaySeconds: 15  
+  periodSeconds: 20          
+  failureThreshold: 3        
+
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 3000
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  failureThreshold: 3
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port:   "3000"
+  prometheus.io/path:   "/metrics"
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1001
+  fsGroup: 1001
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+serviceMonitor:
+  enabled: false
+
+nodeSelector: {}
+tolerations:  []
+affinity:     {}

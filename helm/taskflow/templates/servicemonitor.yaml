@@ -1,0 +1,20 @@
+{{- if .Values.serviceMonitor.enabled }}
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Release.Name }}-monitor
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app:     {{ .Values.appName }}
+    release: prom-stack     # MUST match Prometheus Operator selector
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  endpoints:
+    - port:         http
+      path:         /metrics
+      interval:     15s       # Scrape every 15 seconds
+      scrapeTimeout: 10s
+{{- end }}

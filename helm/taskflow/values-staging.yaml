@@ -1,0 +1,17 @@
+
+replicaCount: 1
+nodeEnv: "staging"
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+autoscaling:
+  enabled: false
+
+serviceMonitor:
+  enabled: true
