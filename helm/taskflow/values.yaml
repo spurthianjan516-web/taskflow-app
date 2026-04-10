@@ -2,7 +2,7 @@
 appName: taskflow
 
 image:
-  repository: DOCKERHUB_USERNAME/taskflow-app  
+  repository: /taskflow-app  
   pullPolicy: IfNotPresent
   tag: "latest"                                
 replicaCount: 1
