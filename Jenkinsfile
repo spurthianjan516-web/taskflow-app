@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     APP_NAME        = "taskflow-app"
-    DOCKER_IMAGE    = "/taskflow-app"
+    DOCKER_IMAGE    = "spurthi7/taskflow-app"
     DOCKER_TAG      = "${BUILD_NUMBER}"
     HELM_CHART      = "helm/taskflow"
     RELEASE_NAME    = "taskflow"

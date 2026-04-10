@@ -2,7 +2,7 @@
 appName: taskflow
 
 image:
-  repository: /taskflow-app  
+  repository: spurthi7/taskflow-app  
   pullPolicy: IfNotPresent
   tag: "latest"                                
 replicaCount: 1
